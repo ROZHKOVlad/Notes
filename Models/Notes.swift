@@ -2,17 +2,15 @@ import UIKit
 import RealmSwift
 
 final class Notes: Object {
-    @Persisted private var id: String
-    @Persisted var headText: String
-    @Persisted var text: String
-    @Persisted var type: Int
+    @Persisted var id: String
+    @Persisted var headerText: String
+    @Persisted var bodyText: String
     
-    convenience init(headText: String, text: String, type: Int) {
+    convenience init(headerText: String, bodyText: String) {
         self.init()
         self.id = UUID().uuidString
-        self.headText = headText
-        self.text = text
-        self.type = type
+        self.headerText = headerText
+        self.bodyText = bodyText
     }
     
     override class func primaryKey() -> String? {

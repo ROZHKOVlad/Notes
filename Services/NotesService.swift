@@ -7,31 +7,28 @@ final class NotesService {
             $0
         })
     
-    
     func deleteNote(id: String) {
         guard let note = RealmService.shared.localRealm.object(ofType: Notes.self, forPrimaryKey: id) else { return }
         RealmService.shared.localRealm.delete(note)
     }
     
-    func addNote(headText: String, text: String, type: Int) {
-        let note = Notes(headText: headText, text: text, type: type)
+    func addNote(headerText: String, bodyText: String) {
+        let note = Notes(headerText: headerText, bodyText: bodyText)
         try? RealmService.shared.localRealm.write {
             RealmService.shared.localRealm.add(note, update: .all)
         }
     }
     
-    func updateNote(id: String, headText: String?, text: String?, type: Int?) {
+    func updateNote(id: String, headerText: String?, bodyText: String?) {
         guard let note = RealmService.shared.localRealm.object(ofType: Notes.self, forPrimaryKey: id) else { return }
-        if headText != nil {
-            note.headText = headText!
-        }
-        if text != nil {
-            note.text = text!
-        }
-        if type != nil {
-            note.type = type!
-        }
-        RealmService.shared.localRealm.add(note, update: .all)
+        try! RealmService.shared.localRealm.write({
+            if headerText != nil {
+                note.headerText = headerText!
+            }
+            if bodyText != nil {
+                note.bodyText = bodyText!
+            }
+        })
     }
 }
 

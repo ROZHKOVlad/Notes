@@ -5,5 +5,7 @@ final class RealmService {
     
     static var shared = RealmService()
     
-    let localRealm = try! Realm()
+    lazy var localRealm: Realm = {
+        return try! Realm()
+    }()
 }
