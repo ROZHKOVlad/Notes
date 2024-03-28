@@ -6,7 +6,7 @@ final class CurrentNoteViewController: UIViewController, UITextFieldDelegate {
     private let addBarButton = UIBarButtonItem()
     private var headerTextField = TextField()
     private var bodyTextView = TextView()
-    
+        
     private let notesService = NotesService()
     var headerTextFieldText: String = ""
     var bodyTextFieldText: String = ""
@@ -31,7 +31,7 @@ final class CurrentNoteViewController: UIViewController, UITextFieldDelegate {
         view.backgroundColor = .white
         title = "Add Note"
         
-        addBarButton.title = "Save"
+        addBarButton.title = "Confirm"
         addBarButton.tintColor = .systemBlue
         addBarButton.action = #selector(saveNote)
         addBarButton.target = self

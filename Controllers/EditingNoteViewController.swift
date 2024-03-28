@@ -4,6 +4,7 @@ import RealmSwift
 final class EditingNoteViewController: UIViewController, UITextFieldDelegate {
     
     private let addBarButton = UIBarButtonItem()
+    private let deleteBarButton = UIBarButtonItem()
     private var headerTextField = TextField()
     private var bodyTextField = TextView()
     
@@ -16,7 +17,6 @@ final class EditingNoteViewController: UIViewController, UITextFieldDelegate {
         super.init(nibName: nil, bundle: nil)
         self.bodyTextFieldText = bodyTextFieldText
         self.headerTextFieldText = headerTextFieldText
-            
         let note = notesService.notes.first(where: { $0.bodyText == bodyTextFieldText && $0.headerText == headerTextFieldText})
         id = note?.id ?? ""
     }
@@ -33,13 +33,19 @@ final class EditingNoteViewController: UIViewController, UITextFieldDelegate {
     
     private func setupViews() {
         view.backgroundColor = .white
-        title = "Edit Note"
+        title = "Note"
         
-        addBarButton.title = "Edit"
+        addBarButton.title = "Back"
         addBarButton.tintColor = .systemBlue
         addBarButton.action = #selector(editNote)
         addBarButton.target = self
-        navigationItem.rightBarButtonItem = addBarButton
+        navigationItem.leftBarButtonItem = addBarButton
+        
+        deleteBarButton.title = "Delete"
+        deleteBarButton.tintColor = .systemRed
+        deleteBarButton.action = #selector(deleteNote)
+        deleteBarButton.target = self
+        navigationItem.rightBarButtonItem = deleteBarButton
         
         headerTextField.delegate = self
         headerTextField.font = UIFont.systemFont(ofSize: 25)
@@ -84,6 +90,17 @@ final class EditingNoteViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @objc
+    private func deleteNote() {
+        let alert = UIAlertController(title: "Are you sure?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Default action"), style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            self.notesService.deleteNote(id: self.id)
+            self.navigationController?.popViewController(animated: true)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         headerTextField.resignFirstResponder()
         bodyTextField.resignFirstResponder()
