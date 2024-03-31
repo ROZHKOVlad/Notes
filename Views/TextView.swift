@@ -17,5 +17,6 @@ final class TextView: UITextView {
         keyboardType = .default
         showsVerticalScrollIndicator = false
         textInputView.translatesAutoresizingMaskIntoConstraints = false
+        keyboardDismissMode = .onDrag
     }
 }

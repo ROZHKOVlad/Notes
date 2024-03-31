@@ -55,7 +55,7 @@ final class EditingNoteViewController: UIViewController, UITextFieldDelegate {
         headerTextField.text = headerTextFieldText
         view.addSubview(headerTextField)
         
-        bodyTextField.font = UIFont.systemFont(ofSize: 16)
+        bodyTextField.font = UIFont.systemFont(ofSize: 20)
         bodyTextField.text = bodyTextFieldText
         view.addSubview(bodyTextField)
     }

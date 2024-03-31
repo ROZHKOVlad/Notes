@@ -69,7 +69,7 @@ final class CurrentNoteViewController: UIViewController, UITextFieldDelegate {
         headerTextFieldText = headerTextField.text ?? ""
         bodyTextFieldText = bodyTextView.text ?? ""
         if headerTextFieldText == "" {
-            let alert = UIAlertController(title: "Check your note", message: "There is an empty line", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Check your note", message: "There is an empty header", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
@@ -80,7 +80,6 @@ final class CurrentNoteViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         headerTextField.resignFirstResponder()
-        bodyTextView.resignFirstResponder()
         return true
     }
 }
